@@ -7,21 +7,97 @@
 <body>
 
 <!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a href="index.html">Overview</a>
-  <li><a href="Master Cv 1_3_19.pdf">CV</a>
-  <li><a href="#projects">Projects</a>
-  <li><a href="#about">About Me</a>
-</ul>
+/* Navbar container */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+<div class="navbar">
+  <a href="#overview">Overview</a>
+  <a href="Master CV 1_3_19.pdf">CV</a>
+  <div class="dropdown">
+    <button class="dropbtn">Projects
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="#">Snitches Don't Get Stitches</a>
+      <a href="#">Trial Aversion</a>
+      <a href="#">Sushi Go</a>
+    </div>
+  </div>
+</div>
 
 <!-- Main content -->
 <h1 align = "left">Reese Ingraham</h1>
 <p align = "left">B.A. in Economics, Minors in Mathematics and Computer Science, expected May 2020
 Hi! My name is Reese, and I'm a junior at Occidental College, studying economics, math,
 computer science, and law.
-<br>
 My current interests are the economics of crime and social relationships.
-<br>
 If you need to reach me, please do so at reese.ingraham@gmail.com.
 </p>
 </body>
