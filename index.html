@@ -2,127 +2,67 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-/* Fixed sidenav, full height */
-.sidenav {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 20px;
+body {
+  font-family: Georgia, serif;
 }
 
-/* Style the sidenav links and the dropdown button */
-.sidenav a, .dropdown-btn {
+.sidenav {
+  width: 130px;
+  position: fixed;
+  z-index: 1;
+  top: 20px;
+  left: 10px;
+  background: #125772;
+  overflow-x: hidden;
+  padding: 8px 0;
+}
+
+.sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
-  color: #818181;
+  color: #A1C5DA;
   display: block;
-  border: none;
-  background: none;
-  width:100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
 }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
+.sidenav a:hover {
+  color: #064579;
 }
 
-.dropdown .dropbtn {
-  cursor: pointer;
-  font-size: 16px;
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
+.main {
+  margin-left: 140px; /* Same width as the sidebar + left position in px */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
 }
 
-.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
-  background-color: red;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.show {
-  display: block;
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 </style>
 </head>
 <body>
 
 <div class="sidenav">
-  <a href="#overview">Overview</a>
-  <a href="Master CV 1_3_19.pdf">CV</a>
-  <button class="dropdown-btn">Projects
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#sgds">Snitches Don't Get Stitches</a>
-    <a href="#ta">Trial Aversion</a>
-    <a href="#sg">Sushi Go</a>
-  </div>
-  <a href="#about">About Me</a>
+  <a href = "#overview">Overview</a>
+  <a href = "Master CV 1_3_19.pdf">CV</a>
+  <a href = "#sgds">Snitches Don't Get Stitches</a>
+  <a href = "#tv">Trial Aversion</a>
+  <a href = "#sg">Sushi Go</a>
+  <a href = "#blog">Pretty Harmful Econometrics</a>
+  <a href = "#about">About Me</a>
 </div>
 
-<h1>Reese Ingraham</h1>
-<h3>B.A. in Economics, Minors in Mathematics and Computer Science, expected May 2020</h3>
-<p>Hi! My name is Reese, and I'm a junior at Occidental College studying the intersection of economics, math, computer
-science, and the law.
-<br>
-  <br>
+<div class="main">
+  <h2>Reese Ingraham</h2>
+  <h6>B.A. in Economics, Minors in Mathematics and Computer Science, expected May 2020</h6>
+  <p> Hello! My name is Reese, and I'm a junior at Occidental College studying economics. My long-term goal is to
+  persue a doctorate in economics. My current research interests focus on the economics of crime and social
+  relationships.</p>
 
-  My current research interests focus on the economics of crime and social relationships.
-  <br>
-  <br>
-If you need to reach me, please don't hesistate to email me at reese.ingraham@gmail.com</p>
-<script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
+  <p> If you need to reach out, please don't hesitate to do so at reese.ingraham@gmail.com.</p>
+</div>
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(e) {
-  if (!e.target.matches('.dropbtn')) {
-  var myDropdown = document.getElementById("myDropdown");
-    if (myDropdown.classList.contains('show')) {
-      myDropdown.classList.remove('show');
-    }
-  }
-}
-</script>
 </body>
 </html>
