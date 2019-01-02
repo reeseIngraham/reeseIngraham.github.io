@@ -4,19 +4,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-  font-family: Arial, Helvetica, sans-serif;
+.sidenav {
+  width: 130px;
+  position: fixed;
+  z-index: 1;
+  top: 20px;
+  left: 10px;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 8px 0;
 }
 
-.navbar a {
+.sidenav a {
   float: left;
-  font-size: 16px;
-  color: white;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
+  padding: 6px 8px 6px 16px;
+  font-size: 25px;
+  color: #2196F3;
+  display: block;
 }
 
 .dropdown {
@@ -69,28 +75,26 @@
 </head>
 <body>
 
-<div class="navbar">
+<div class="sidenav">
   <a href="#overview">Overview</a>
   <a href="Master CV 1_3_19.pdf">CV</a>
-  <div class="dropdown">
-  <button class="dropbtn" onclick="myFunction()">Dropdown
+  <button class="dropdown-btn">Projects
     <i class="fa fa-caret-down"></i>
   </button>
-  <div class="dropdown-content" id="myDropdown">
+  <div class="dropdown-container">
     <a href="#sgds">Snitches Don't Get Stitches</a>
-    <a href="#tv">Trial Aversion</a>
-    <a href="#">Link 3</a>
+    <a href="#ta">Trial Aversion</a>
+    <a href="#sg">Sushi Go</a>
   </div>
-  </div>
+  <a href="#about">About Meh</a>
 </div>
 
 <h1>Reese Ingraham</h1>
-<p>B.A. in Economics, Minors in Mathematics and Computer Science, expected May 2020</p>
+<h3>B.A. in Economics, Minors in Mathematics and Computer Science, expected May 2020</h3>
 <p>Hi! My name is Reese, and I'm a junior at Occidental College studying the intersection of economics, math, computer
 science, and the law.
 
 If you need to reach me, please don't hesistate to email me at reese.ingraham@gmail.com</p>
-
 <script>
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
