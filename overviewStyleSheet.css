@@ -3,14 +3,14 @@ body {
 }
 
 .sidenav {
-  width: 130px;
+  width: 140px;
   position: fixed;
   z-index: 1;
   top: 20px;
   left: 10px;
   background: #125772;
   overflow-x: hidden;
-  padding: 8px 0;
+  padding: 10px 0;
 }
 
 .sidenav a {
@@ -27,7 +27,7 @@ body {
 
 .main {
   margin-left: 140px; /* Same width as the sidebar + left position in px */
-  font-size: 28px; /* Increased text to enable scrolling */
+  font-size: 20px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
 
@@ -36,14 +36,14 @@ body {
   .sidenav a {font-size: 18px;}
 }
 
-h6
+h1
 {
   margin: 0;
   padding: 0;
 }
 
-body
+h6
 {
-    background-color: #011A38;
-    color: #A1C5DA
+  margin: 0;
+  padding: 0;
 }
