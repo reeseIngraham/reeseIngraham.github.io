@@ -1,0 +1,1012 @@
+------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/reeseingraham/Documents/Research/SDGS/Stata/crimeDataComplete.log
+  log type:  text
+ opened on:   4 Jan 2019, 11:38:37
+
+. // Here, I drop all of the variables that were included in the data set
+. // that I won't be using.
+. drop premisecode
+
+. drop premisedescription
+
+. drop weapondescription
+
+. drop statuscode
+
+. drop location
+
+. drop crossstreet
+
+. drop address
+
+. drop mocodes
+
+. drop crimecode4
+
+. drop crimecode3
+
+. drop statusdescription
+
+. drop crimecode1
+
+. drop crimecode2
+
+. drop timeoccurred
+
+. drop areaname
+
+. drop reportingdistrict
+
+. sort crimecode
+
+. 
+. // "Drunk roll"? Not even UrbanDictionary could
+. // help me out with that one.
+. drop if crimecode == 353
+(26 observations deleted)
+
+. drop if crimecode == 453
+(1 observation deleted)
+
+. 
+. // "Document worthless" - vague
+. drop if crimecode == 651
+(266 observations deleted)
+
+. drop if crimecode == 652
+(39 observations deleted)
+
+. 
+. // Here, I drop observations that had no recorded value for 
+. // crimecodedescription.
+. drop if crimecode == 760
+(90 observations deleted)
+
+. drop if crimecode == 814
+(86 observations deleted)
+
+. drop if crimecode == 822
+(186 observations deleted)
+
+. drop if crimecode == 921
+(50 observations deleted)
+
+. 
+. // "Crime against child" is vague
+. drop if crimecode == 812
+(6,431 observations deleted)
+
+. 
+. // "Other miscellaneous crime"? Vague
+. drop if crimecode == 946 
+(16,449 observations deleted)
+
+. 
+. // "Illegal dumping" is an LA municipal code, not California code, so we'll
+. // drop it
+. drop if crimecode == 949
+(392 observations deleted)
+
+. 
+. // "Illegal abortion" is a LA municipal code, not CA code, so we'll drop this
+. // one too
+. drop if crimecode == 952
+(3 observations deleted)
+
+. 
+. // Now, we're making a new dummy variable violent s.t. violent = 1 iff the
+. // crime necessitates the application of force on the victim, else violent = 0
+. generate violent = 0
+
+. replace violent = 1 if crimecode == 110
+(2,155 real changes made)
+
+. replace violent = 1 if crimecode == 113
+(3 real changes made)
+
+. replace violent = 1 if crimecode == 121
+(7,314 real changes made)
+
+. replace violent = 1 if crimecode == 122
+(871 real changes made)
+
+. replace violent = 1 if crimecode == 210
+(63,408 real changes made)
+
+. replace violent = 1 if crimecode == 220
+(9,009 real changes made)
+
+. replace violent = 1 if crimecode == 230
+(67,631 real changes made)
+
+. replace violent = 1 if crimecode == 231
+(1,258 real changes made)
+
+. replace violent = 1 if crimecode == 235
+(1,295 real changes made)
+
+. replace violent = 1 if crimecode == 236
+(8,629 real changes made)
+
+. replace violent = 1 if crimecode == 250
+(178 real changes made)
+
+. replace violent = 1 if crimecode == 251
+(2,015 real changes made)
+
+. replace violent = 1 if crimecode == 435
+(39 real changes made)
+
+. replace violent = 1 if crimecode == 436
+(20 real changes made)
+
+. replace violent = 1 if crimecode == 622
+(223 real changes made)
+
+. replace violent = 1 if crimecode == 623
+(3,450 real changes made)
+
+. replace violent = 1 if crimecode == 624
+(145,767 real changes made)
+
+. replace violent = 1 if crimecode == 625
+(1,808 real changes made)
+
+. replace violent = 1 if crimecode == 626
+(85,908 real changes made)
+
+. replace violent = 1 if crimecode == 627
+(6,779 real changes made)
+
+. replace violent = 1 if crimecode == 647
+(1,157 real changes made)
+
+. replace violent = 1 if crimecode == 648
+(2,631 real changes made)
+
+. replace violent = 1 if crimecode == 753
+(2,824 real changes made)
+
+. replace violent = 1 if crimecode == 761
+(8,895 real changes made)
+
+. replace violent = 1 if crimecode == 815
+(1,568 real changes made)
+
+. replace violent = 1 if crimecode == 820
+(1,254 real changes made)
+
+. replace violent = 1 if crimecode == 821
+(1,000 real changes made)
+
+. replace violent = 1 if crimecode == 860
+(8,053 real changes made)
+
+. replace violent = 1 if crimecode == 882
+(8 real changes made)
+
+. replace violent = 1 if crimecode == 910
+(1,657 real changes made)
+
+. replace violent = 1 if crimecode == 920
+(586 real changes made)
+
+. replace violent = 1 if crimecode == 922
+(915 real changes made)
+
+. // Here, I generate a new variable, perCapitaCrime.
+. // Using the LA Times' LA Mapping Project (source in bibliography), I used
+. // the per capita crime for the area of Los Angeles that
+. // the reporting police station resides in. Not perfect, but good enough 
+. // for our purposes.
+. generate perCapitaCrime = .
+(1,560,297 missing values generated)
+
+. replace perCapitaCrime = 46.0 if areaid == 1
+(65,526 real changes made)
+
+. replace perCapitaCrime = 45.9 if areaid == 2
+(65,920 real changes made)
+
+. replace perCapitaCrime = 121.8 if areaid == 3
+(100,644 real changes made)
+
+. replace perCapitaCrime = 32.8 if areaid == 4
+(56,765 real changes made)
+
+. replace perCapitaCrime = 24.0 if areaid == 5
+(69,776 real changes made)
+
+. replace perCapitaCrime = 72.3 if areaid == 6
+(71,181 real changes made)
+
+. replace perCapitaCrime = 23.5 if areaid == 7
+(62,527 real changes made)
+
+. replace perCapitaCrime = 18.4 if areaid == 8
+(65,623 real changes made)
+
+. replace perCapitaCrime = 30.5 if areaid == 9
+(74,462 real changes made)
+
+. replace perCapitaCrime = 23.6 if areaid == 10
+(66,902 real changes made)
+
+. replace perCapitaCrime = 17.1 if areaid == 11
+(75,799 real changes made)
+
+. replace perCapitaCrime = 71.8 if areaid == 12
+(108,606 real changes made)
+
+. replace perCapitaCrime = 46.0 if areaid == 13
+(73,120 real changes made)
+
+. replace perCapitaCrime = 18.4 if areaid == 14
+(82,340 real changes made)
+
+. replace perCapitaCrime = 19.4 if areaid == 15
+(85,309 real changes made)
+
+. replace perCapitaCrime = 24.1 if areaid == 16
+(60,080 real changes made)
+
+. replace perCapitaCrime = 30.5 if areaid == 17
+(73,177 real changes made)
+
+. replace perCapitaCrime = 32.6 if areaid == 18
+(82,180 real changes made)
+
+. replace perCapitaCrime = 26.4 if areaid == 19
+(78,918 real changes made)
+
+. replace perCapitaCrime = 45.2 if areaid == 20
+(69,009 real changes made)
+
+. replace perCapitaCrime = 37.8 if areaid == 21
+(72,433 real changes made)
+
+. // weaponusedcode is a variable included in the dataset which give the police
+. // code of any weapon(s) used in the crime, if there was one. I make the
+. // assumption that the data was correctly entered and that a null value
+. // actually means that there was no weapon involved, and not just that the
+. // officer reporting forgot to enter in a value, thus setting weaponUsed = 0
+. // iff weaponusedcode is null and weaponUsed = 1 if weaponusedcode isn't null.
+. generate weaponUsed = .
+(1,560,297 missing values generated)
+
+. replace weaponUsed = 0 if weaponusedcode == .
+(1,043,768 real changes made)
+
+. replace weaponUsed = 1 if weaponusedcode != .
+(516,529 real changes made)
+
+. drop weaponusedcode
+
+. // Here, I'm converting the date reported and occurred into a date format
+. // that Stata can read and do calculations on.
+. generate tdreport = date(datereported, "MDY")
+
+. format tdreport %td
+
+. generate tdoccur = date(dateoccurred, "MDY")
+
+. format tdreport %8.0g
+
+. generate dateDifference = tdreport - tdoccur
+
+. // Here, I drop more observations that have missing values.
+. drop if victimage == .
+(121,527 observations deleted)
+
+. drop if victimsex != "F" & victimsex != "M"
+(131,777 observations deleted)
+
+. // In the below 3 lines, I turn the victimsex variable into a dummy variable
+. // female that Stata can read.
+. generate female = .
+(1,306,993 missing values generated)
+
+. replace female = 1 if victimsex == "F"
+(651,928 real changes made)
+
+. replace female = 0 if victimsex == "M"
+(655,065 real changes made)
+
+. // I drop tdreport and tdoccur as I have already done the calculations I need 
+. // with them.
+. drop tdreport
+
+. drop tdoccur
+
+. // As a proxy for the severity of the crime, I generate variable minSent s.t.
+. // minSent = the minimum sentence for the crime. For more information, see
+. // section 3.
+. generate minSent = .
+(1,306,993 missing values generated)
+
+. replace minSent = 25 if crimecode == 110 // Criminal homicide
+(2,098 real changes made)
+
+. replace minSent = 2 if crimecode == 113 // Negligent manslaughter
+(1 real change made)
+
+. replace minSent = 3 if crimecode == 121 // Forcible rape
+(7,151 real changes made)
+
+. replace minSent = 1.5 if crimecode == 122 // Attempted rape
+(852 real changes made)
+
+. replace minSent = 3 if crimecode == 210 // Robbery
+(58,185 real changes made)
+
+. replace minSent = 1.5 if crimecode == 220 // Attempted robbery
+(8,427 real changes made)
+
+. replace minSent = 2 if crimecode == 230 // Assault with deadly weapon
+(65,751 real changes made)
+
+. replace minSent = 2 if crimecode == 231 // Assault with deadly weapon on police
+(487 real changes made)
+
+. // officer
+. replace minSent = 0 if crimecode == 235 // Physical child abuse
+(529 real changes made)
+
+. replace minSent = 5 if crimecode == 236 // Aggravated assault on intimate
+(8,598 real changes made)
+
+. // partner
+. replace minSent = 4 if crimecode == 237 // Child neglect
+(1,309 real changes made)
+
+. replace minSent = 0.5 if crimecode == 250 // Shots fired at moving vehicle
+(139 real changes made)
+
+. replace minSent = 0.5 if crimecode == 251 // Shots fired at inhabited dwelling
+(1,866 real changes made)
+
+. replace minSent = 2 if crimecode == 310 // Burglary
+(103,355 real changes made)
+
+. replace minSent = 1 if crimecode == 320 // Attempted burglary
+(9,030 real changes made)
+
+. replace minSent = 2 if crimecode == 330 // Burglary from vehicle
+(119,559 real changes made)
+
+. replace minSent = 0 if crimecode == 331 // Grand theft from vehicle over $400
+(22,051 real changes made)
+
+. replace minSent = 0 if crimecode == 341 // Grand theft from vehicle over $950
+(50,596 real changes made)
+
+. replace minSent = 0 if crimecode == 343 // Shoplifting
+(1,721 real changes made)
+
+. replace minSent = 0 if crimecode == 345 // Grand theft from dishonest employee
+(80 real changes made)
+
+. replace minSent = 0 if crimecode == 347 // Insurance fraud
+(29 real changes made)
+
+. replace minSent = 0 if crimecode == 349 // Grand theft by auto repair
+(11 real changes made)
+
+. replace minSent = 0 if crimecode == 350 // Theft from person
+(10,187 real changes made)
+
+. replace minSent = 0 if crimecode -- 351 // Purse snatching
+(1,221,789 real changes made)
+
+. replace minSent = 0 if crimecode == 420 // Petty theft
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 421 // Attempted petty theft
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 433 // Driving without owner's consent
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 434 // False imprisonment
+(0 real changes made)
+
+. replace minSent = 2 if crimecode == 435 // Lynching - in California Criminal
+(12 real changes made)
+
+. // Code, lynching (fortunately) doesn't mean hanging someone from a tree, 
+. // it means using a riot to take a person from the lawful custody of a 
+. // peace officer.
+. replace minSent = 1 if crimecode == 436 // Attempted lynching
+(6 real changes made)
+
+. replace minSent = 0 if crimecode == 437 // Resisting arrest
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 438 // Reckless driving
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 439 // False police Report
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 440 // Plain petty theft
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 441 // Attempted plain petty theft
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 442 // Shoplifting
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 443 // Attempted shoplifting 
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 444 // Theft by dishonest employee
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 445 // Attempted theft by dishonest employee
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 446 // Petty theft by auto repair
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 450 // Attempted petty theft by person
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 451 // Attempted purse snatching
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 452 // Attempted pickpocketing 
+(0 real changes made)
+
+. // Drop another drunk roll observation. Still not sure what drunk roll is. Is
+. // it like cow-tipping but you roll drunks down a hill? Do you race to see who
+. // can roll drunks the fastest?
+. drop if crimecodedescription == "Drunk Roll"
+(0 observations deleted)
+
+. replace minSent = 0 if crimecode == 470 // Grand theft - till tap
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 471 // Petty theft - till tap
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 473 // Grand theft - coin machine
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 474 // Petty theft - coin machine
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 475 // Attempted theft - coin machine
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 480 // Stolen bike
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 485 // Attempted stolen bike
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 487 // Stolen boat
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 510 // Stolen vehicle
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 520 // Attempted stolen vehicle
+(0 real changes made)
+
+. replace minSent = 3 if crimecode == 622 // Battery on firefighter
+(172 real changes made)
+
+. replace minSent = 3 if crimecode == 623 // Battery on police officer
+(1,638 real changes made)
+
+. replace minSent = 0 if crimecode == 624 // Simple battery
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 625 // Other battery
+(0 real changes made)
+
+. replace minSent = 3 if crimecode == 626 // Domestic violence enhancement
+(85,569 real changes made)
+
+. replace minSent = 0 if crimecode == 627 // Physical child abuse
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 647 // Throwing object at moving vehicle
+(0 real changes made)
+
+. replace minSent = 2.66 if crimecode == 648 // Arson
+(1,942 real changes made)
+
+. replace minSent = 0 if crimecode == 649 // Document forgery
+(0 real changes made)
+
+. // Dropped "Document worthless" - really vague
+. drop if crimecode == 651
+(0 observations deleted)
+
+. drop if crimecode == 652
+(0 observations deleted)
+
+. replace minSent = 0 if crimecode == 653 // Credit card fraud
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 654 // Credit card fraud
+(0 real changes made)
+
+. replace minSent = 2 if crimecode == 660 // Counterfeiting
+(432 real changes made)
+
+. replace minSent = 0 if crimecode == 661 // Unauthorized computer access
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 662 // Grand theft by false pretense
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 664 // Petty theft by false pretense
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 666 // Attempted theft by false pretense 
+(0 real changes made)
+
+. replace minSent = 2 if crimecode == 668 // Grand theft by embezzlement
+(2,938 real changes made)
+
+. replace minSent = 2 if crimecode == 670 // Petty theft by embezzlement
+(291 real changes made)
+
+. replace minSent = 0 if crimecode == 740 // Vandalism doing over $400 of damage'
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 745 // Vandalism doing under $400 of damage
+(0 real changes made)
+
+. replace minSent = 0.49 if crimecode == 753 // Discharge firearm, technically the
+(1,400 real changes made)
+
+. // minimum sentence is 180 days, so 180 / 365 ~ 0.49
+. replace minSent = 0 if crimecode == 755 // Bomb threat
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 756 // Possession of bomb
+(0 real changes made)
+
+. replace minSent = 0.25 if crimecode == 761 // Brandishing weapon, minimum
+(8,624 real changes made)
+
+. // sentence is 90 days, and 90 / 365 ~ 0.25
+. replace minSent = 0 if crimecode == 762 // Lewd conduct
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 763 // Stalking
+(0 real changes made)
+
+. replace minSent = 3 if crimecode == 805 // Pimping
+(399 real changes made)
+
+. replace minSent = 3 if crimecode == 806 // Pandering
+(153 real changes made)
+
+. replace minSent = 0 if crimecode == 810 // Unlawful sex (Statutory rape)
+(0 real changes made)
+
+. drop if crimecode == 812 // "Crime against child" - vague
+(0 observations deleted)
+
+. replace minSent = 0 if crimecode == 813 // Annoying a child
+(0 real changes made)
+
+. replace minSent = 3 if crimecode == 815 // Sexual penetration w/ foreign object
+(1,368 real changes made)
+
+. replace minSent = 0 if crimecode == 820 // Oral copulation
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 821 // Sodomy; This is forced sodomy, as in 
+(0 real changes made)
+
+. // 2003 the US Supreme Court struck down consensual sodomy laws as
+. // unconstitutional, and this data set only goes back to 2010
+. replace minSent = 1.33 if crimecode == 830 // Incest; technically, F
+(8 real changes made)
+
+. replace minSent = 0 if crimecode == 840 // Bestiality
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 850 // Indecent exposure
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 860 // Sexual battery
+(0 real changes made)
+
+. replace minSent = 3 if crimecode == 865 // Furnishing drugs to a minor
+(33 real changes made)
+
+. replace minSent = 0 if crimecode == 870 // Child abandoment
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 880 // Disrupting school
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 882 // Inciting a riot
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 884 // Failure to disperse
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 886 // Disturbing the peace
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 888 // Trespass
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 890 // Failure to yield
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 900 // Disobeying court order
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 901 // Violating restraining order
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 902 // Violation of temporary restraining
+(0 real changes made)
+
+. // order
+. replace minSent = 0 if crimecode == 903 // Contempt of court
+(0 real changes made)
+
+. replace minSent = 3 if crimecode == 910 // Kidnap
+(1,443 real changes made)
+
+. replace minSent = 1.5 if crimecode == 920 // Attempted kidnap
+(488 real changes made)
+
+. replace minSent = 0 if crimecode == 922 // Child stealing
+(0 real changes made)
+
+. replace minSent = 1.33 if crimecode == 924 // Damage to telephone line;
+(33 real changes made)
+
+. replace minSent = 100 if crimecode == 926 // Train wrecking; The true minimum
+(1 real change made)
+
+. //sentence is life without parole, but that is hard to convey to Stata, so I
+. // think that 100 years is close enough.
+. replace minSent = 0 if crimecode == 928 // Criminal threats
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 930 // Criminal threats w/ no weapon
+(0 real changes made)
+
+. replace minSent = 0.08 if crimecode == 931 // Brandishing replica firearm
+(13 real changes made)
+
+. replace minSent = 0 if crimecode == 932 // Peeping tom
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 933 // Prowler
+(0 real changes made)
+
+. replace minSent = 2 if crimecode == 940 // Extortion
+(1,472 real changes made)
+
+. replace minSent = 0 if crimecode == 942 // Bribery
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 943 // Animal cruelty
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 944 // Conspiracy to falsely indict another
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 948 // Bigamy
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 950 // Theft of services over $400
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 951 // Theft of services under $400
+(0 real changes made)
+
+. replace minSent = 0 if crimecode == 954 // Contributing to the delinquency of
+(0 real changes made)
+
+. // a minor
+. replace minSent = 0 if crimecode == 956 // Lewd letters
+(0 real changes made)
+
+. // Now that I don't need these variables anymore, let's drop them
+. drop crimecode
+
+. drop crimecodedescription
+
+. drop areaid
+
+. drop datereported
+
+. drop dateoccurred
+
+. drop victimsex
+
+. 
+. // Just so we have consistent camelCase across all of our variables.
+. rename victimage age
+
+. save crime_Data_Var.dta, replace
+file crime_Data_Var.dta saved
+
+. 
+. generate age2 = (age)^2
+
+. 
+. summarize
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   qdrnumber |  1,306,993    1.36e+08    2.24e+07       1512   1.80e+08
+         age |  1,306,993    38.29741    15.87307         10         99
+victimdesc~t |          0
+     violent |  1,306,993    .3192282    .4661778          0          1
+perCapitaC~e |  1,306,993    41.02379    27.15056       17.1      121.8
+-------------+---------------------------------------------------------
+  weaponUsed |  1,306,993    .3750716    .4841416          0          1
+dateDiffer~e |  1,306,993    16.54474    102.1445          0       2778
+      female |  1,306,993    .4987999    .4999988          0          1
+     minSent |  1,306,993    .2230435    .7815448          0        100
+        age2 |  1,306,993    1718.646    1400.888        100       9801
+
+. // II. Regression
+. regress dateDifference perCapitaCrime age2 age minSent violent weaponUsed female  
+
+      Source |       SS           df       MS      Number of obs   = 1,306,993
+-------------+----------------------------------   F(7, 1306985)   =   1476.32
+       Model |   106977222         7  15282460.2   Prob > F        =    0.0000
+    Residual |  1.3530e+10 1,306,985  10351.6994   R-squared       =    0.0078
+-------------+----------------------------------   Adj R-squared   =    0.0078
+       Total |  1.3636e+10 1,306,992  10433.4939   Root MSE        =    101.74
+
+--------------------------------------------------------------------------------
+dateDifference |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+perCapitaCrime |  -.0141504   .0033008    -4.29   0.000    -.0206199    -.007681
+          age2 |   .0113423   .0002831    40.07   0.000     .0107876    .0118971
+           age |  -.8494431   .0250301   -33.94   0.000    -.8985012    -.800385
+       minSent |   .0715336   .1257007     0.57   0.569    -.1748355    .3179027
+       violent |  -4.064003   .3731147   -10.89   0.000    -4.795295   -3.332711
+    weaponUsed |  -12.28438   .3463922   -35.46   0.000    -12.96329   -11.60546
+        female |   4.393927     .18043    24.35   0.000     4.040291    4.747564
+         _cons |   33.86045   .5438421    62.26   0.000     32.79454    34.92636
+--------------------------------------------------------------------------------
+
+. 
+. // III. Econometric Errors
+. // III.i Irrelevant Variable Bias
+. //Checking for irrelevant variable bias.
+. regress dateDifference perCapitaCrime age minSent violent weaponUsed female  
+
+      Source |       SS           df       MS      Number of obs   = 1,306,993
+-------------+----------------------------------   F(6, 1306986)   =   1452.98
+       Model |  90355657.8         6  15059276.3   Prob > F        =    0.0000
+    Residual |  1.3546e+10 1,306,986  10364.4089   R-squared       =    0.0066
+-------------+----------------------------------   Adj R-squared   =    0.0066
+       Total |  1.3636e+10 1,306,992  10433.4939   Root MSE        =    101.81
+
+--------------------------------------------------------------------------------
+dateDifference |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+perCapitaCrime |  -.0131923   .0033027    -3.99   0.000    -.0196656   -.0067191
+           age |   .1271007   .0057123    22.25   0.000     .1159048    .1382966
+       minSent |  -.1605687   .1256443    -1.28   0.201    -.4068271    .0856897
+       violent |  -3.648674   .3731996    -9.78   0.000    -4.380132   -2.917215
+    weaponUsed |  -12.29893   .3466046   -35.48   0.000    -12.97826   -11.61959
+        female |    4.45894   .1805334    24.70   0.000       4.1051    4.812779
+         _cons |   15.80774   .3048139    51.86   0.000     15.21032    16.40516
+--------------------------------------------------------------------------------
+
+. 
+. drop age2
+
+. 
+. // III.ii Omitted Variable Bias
+. // Now, we analyze the effect that including race has on our regression.
+. // First, I generate new variable POC s.t. POC = 0 if the victim is white
+. // and POC = 1 if the victim is nonwhite.
+. generate POC = 0
+
+. // I drop observations that don't have recordings of the victim's race.
+. drop if victimdescent == ""
+(27 observations deleted)
+
+. drop if victimdescent == "X"
+(8,327 observations deleted)
+
+. 
+. // Now, let's populate the field.
+. replace POC = 1 if victimdescent != "W"
+(940,478 real changes made)
+
+. 
+. // And let's grab some summary statistics.
+. summarize
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   qdrnumber |  1,298,639    1.36e+08    2.25e+07    1208575   1.80e+08
+         age |  1,298,639    38.36889    15.85411         10         99
+victimdesc~t |          0
+     violent |  1,298,639    .3204077    .4666335          0          1
+perCapitaC~e |  1,298,639    40.98946    27.11913       17.1      121.8
+-------------+---------------------------------------------------------
+  weaponUsed |  1,298,639    .3762932    .4844552          0          1
+dateDiffer~e |  1,298,639      16.606    102.3926          0       2778
+      female |  1,298,639    .5011447    .4999989          0          1
+     minSent |  1,298,639    .2238693    .7782626          0          3
+         POC |  1,298,639    .7242028    .4469153          0          1
+
+. 
+. // Finally, let's run our regression.
+. regress dateDifference perCapitaCrime age minSent violent weaponUsed female POC
+
+      Source |       SS           df       MS      Number of obs   = 1,298,639
+-------------+----------------------------------   F(7, 1298631)   =   1269.62
+       Model |  92544214.7         7  13220602.1   Prob > F        =    0.0000
+    Residual |  1.3523e+10 1,298,631  10413.0382   R-squared       =    0.0068
+-------------+----------------------------------   Adj R-squared   =    0.0068
+       Total |  1.3615e+10 1,298,638  10484.2446   Root MSE        =    102.04
+
+--------------------------------------------------------------------------------
+dateDifference |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+perCapitaCrime |  -.0211739   .0033758    -6.27   0.000    -.0277904   -.0145574
+           age |   .1344837   .0058046    23.17   0.000      .123107    .1458605
+       minSent |  -.2060078   .1270688    -1.62   0.105    -.4550583    .0430427
+       violent |   -3.78284   .3752644   -10.08   0.000    -4.518345   -3.047334
+    weaponUsed |  -12.64145   .3488316   -36.24   0.000    -13.32515   -11.95775
+        female |   4.286384   .1816776    23.59   0.000     3.930302    4.642465
+           POC |   2.996281   .2087501    14.35   0.000     2.587138    3.405424
+         _cons |   14.01097   .3395608    41.26   0.000     13.34544    14.67649
+--------------------------------------------------------------------------------
+
+. 
+. // III.iii Multicollinearity
+. //Checking for multicollinearity.
+. pwcorr
+(victimdescent ignored because string variable)
+
+             | qdrnum~r      age  violent perCap~e weapon~d dateDi~e   female
+-------------+---------------------------------------------------------------
+   qdrnumber |   1.0000 
+         age |   0.0393   1.0000 
+     violent |   0.0073  -0.1780   1.0000 
+perCapitaC~e |  -0.0059  -0.0577   0.0944   1.0000 
+  weaponUsed |  -0.0039  -0.1713   0.8461   0.1040   1.0000 
+dateDiffer~e |   0.0516   0.0317  -0.0697  -0.0117  -0.0757   1.0000 
+      female |  -0.0120  -0.0386   0.0390   0.0242   0.0487   0.0168   1.0000 
+     minSent |   0.0139  -0.0974   0.3938   0.0101   0.3017  -0.0244   0.1551 
+         POC |   0.0137  -0.1648   0.1635   0.1917   0.1728  -0.0037   0.0454 
+
+             |  minSent      POC
+-------------+------------------
+     minSent |   1.0000 
+         POC |   0.0666   1.0000 
+
+. 
+. // III.iv Serial Correlation
+. // Checking for serial correlation
+. generate time = _n
+
+. 
+. tsset time
+        time variable:  time, 1 to 1298639
+                delta:  1 unit
+
+. 
+. estat dwatson
+
+Durbin-Watson d-statistic(  8,1298639) =  1.824954
+
+. 
+. // Correcting for serial correlation
+. newey dateDifference perCapitaCrime age minSent violent weaponUsed female POC, lag(0)
+
+Regression with Newey-West standard errors      Number of obs     =  1,298,639
+maximum lag: 0                                  F(  7,   1298631) =    1614.12
+                                                Prob > F          =     0.0000
+
+--------------------------------------------------------------------------------
+               |             Newey-West
+dateDifference |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+perCapitaCrime |  -.0211739   .0033868    -6.25   0.000    -.0278119    -.014536
+           age |   .1344837   .0068191    19.72   0.000     .1211185    .1478489
+       minSent |  -.2060078   .0928812    -2.22   0.027    -.3880517   -.0239639
+       violent |   -3.78284   .2859648   -13.23   0.000    -4.343321   -3.222359
+    weaponUsed |  -12.64145   .2757949   -45.84   0.000      -13.182    -12.1009
+        female |   4.286384    .183989    23.30   0.000     3.925772    4.646996
+           POC |   2.996281   .2041526    14.68   0.000     2.596149    3.396413
+         _cons |   14.01097   .3474003    40.33   0.000     13.33007    14.69186
+--------------------------------------------------------------------------------
+
+. 
+. // III.v Heteroskedasticity
+. // Testing for heteroskedasticity
+. regress dateDifference perCapitaCrime age minSent violent weaponUsed female POC
+
+      Source |       SS           df       MS      Number of obs   = 1,298,639
+-------------+----------------------------------   F(7, 1298631)   =   1269.62
+       Model |  92544214.7         7  13220602.1   Prob > F        =    0.0000
+    Residual |  1.3523e+10 1,298,631  10413.0382   R-squared       =    0.0068
+-------------+----------------------------------   Adj R-squared   =    0.0068
+       Total |  1.3615e+10 1,298,638  10484.2446   Root MSE        =    102.04
+
+--------------------------------------------------------------------------------
+dateDifference |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+perCapitaCrime |  -.0211739   .0033758    -6.27   0.000    -.0277904   -.0145574
+           age |   .1344837   .0058046    23.17   0.000      .123107    .1458605
+       minSent |  -.2060078   .1270688    -1.62   0.105    -.4550583    .0430427
+       violent |   -3.78284   .3752644   -10.08   0.000    -4.518345   -3.047334
+    weaponUsed |  -12.64145   .3488316   -36.24   0.000    -13.32515   -11.95775
+        female |   4.286384   .1816776    23.59   0.000     3.930302    4.642465
+           POC |   2.996281   .2087501    14.35   0.000     2.587138    3.405424
+         _cons |   14.01097   .3395608    41.26   0.000     13.34544    14.67649
+--------------------------------------------------------------------------------
+
+. 
+. imtest, white
+
+White's test for Ho: homoskedasticity
+         against Ha: unrestricted heteroskedasticity
+
+         chi2(31)     =   3353.62
+         Prob > chi2  =    0.0000
+
+Cameron & Trivedi's decomposition of IM-test
+
+---------------------------------------------------
+              Source |       chi2     df      p
+---------------------+-----------------------------
+  Heteroskedasticity |    3353.62     31    0.0000
+            Skewness |    3789.01      7    0.0000
+            Kurtosis |    1708.21      1    0.0000
+---------------------+-----------------------------
+               Total |    8850.83     39    0.0000
+---------------------------------------------------
+
+. 
+. // Correcting for heteroskedasticity
+. regress dateDifference perCapitaCrime age minSent violent weaponUsed female POC, robust
+
+Linear regression                               Number of obs     =  1,298,639
+                                                F(7, 1298631)     =    1614.12
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0068
+                                                Root MSE          =     102.04
+
+--------------------------------------------------------------------------------
+               |               Robust
+dateDifference |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+perCapitaCrime |  -.0211739   .0033868    -6.25   0.000    -.0278119    -.014536
+           age |   .1344837   .0068191    19.72   0.000     .1211185    .1478489
+       minSent |  -.2060078   .0928812    -2.22   0.027    -.3880517   -.0239639
+       violent |   -3.78284   .2859648   -13.23   0.000    -4.343321   -3.222359
+    weaponUsed |  -12.64145   .2757949   -45.84   0.000      -13.182    -12.1009
+        female |   4.286384    .183989    23.30   0.000     3.925772    4.646996
+           POC |   2.996281   .2041526    14.68   0.000     2.596149    3.396413
+         _cons |   14.01097   .3474003    40.33   0.000     13.33007    14.69186
+--------------------------------------------------------------------------------
+
+. save crime_data.dta, replace
+file crime_data.dta saved
+
+. set more on
+
+. log close
+      name:  <unnamed>
+       log:  /Users/reeseingraham/Documents/Research/SDGS/Stata/crimeDataComplete.log
+  log type:  text
+ closed on:   4 Jan 2019, 11:39:42
+------------------------------------------------------------------------------------------------------------
